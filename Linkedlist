@@ -1,0 +1,73 @@
+# Kelas Node untuk menyimpan data tugas
+class TaskNode:
+    def __init__(self, description, status=False):
+        self.description = description 
+        self.status = status  
+        self.next = None  
+
+# Kelas LinkedList untuk mengelola daftar tugas
+class TodoList:
+    def __init__(self):
+        self.head = None  
+
+#Proses Menambahkan Tugas
+todo_list = TodoList()  
+
+# Menambahkan tugas pertama
+task1 = TaskNode("Belajar Python")  
+todo_list.head = task1  
+
+# Menambahkan tugas kedua
+task2 = TaskNode("Mengerjakan PR")  
+task1.next = task2  
+
+# Menambahkan tugas ketiga
+task3 = TaskNode("Membaca Buku")  
+task2.next = task3  
+
+#Menampilkan Daftar Tugas
+current_task = todo_list.head  
+print("Daftar Tugas Awal:")
+while current_task:  
+    status = "Selesai" if current_task.status else "Belum Selesai"
+    print(f"Tugas: {current_task.description} - Status: {status}")
+    current_task = current_task.next  
+
+#Menandai Tugas sebagai Selesai
+current_task = todo_list.head
+while current_task:
+    if current_task.description == "Mengerjakan PR":
+        current_task.status = True  
+        print(f"\nTugas '{current_task.description}' telah ditandai sebagai selesai.")
+        break  
+    current_task = current_task.next 
+
+# Menampilkan Daftar Tugas Setelah Penandaan Selesai
+print("\nDaftar Tugas Setelah Penandaan Selesai:")
+current_task = todo_list.head
+while current_task:
+    status = "Selesai" if current_task.status else "Belum Selesai"
+    print(f"Tugas: {current_task.description} - Status: {status}")
+    current_task = current_task.next  
+
+#Menghapus Tugas
+current_task = todo_list.head
+previous_task = None  
+while current_task:
+    if current_task.description == "Membaca Buku":
+        if previous_task: 
+            previous_task.next = current_task.next  
+        else:  
+            todo_list.head = current_task.next  
+        print(f"\nTugas '{current_task.description}' telah dihapus.")
+        break
+    previous_task = current_task  
+    current_task = current_task.next  
+
+#Menampilkan Daftar Tugas Setelah Penghapusan
+print("\nDaftar Tugas Setelah Penghapusan:")
+current_task = todo_list.head
+while current_task:
+    status = "Selesai" if current_task.status else "Belum Selesai"
+    print(f"Tugas: {current_task.description} - Status: {status}")
+    current_task = current_task.next
